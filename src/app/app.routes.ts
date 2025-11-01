@@ -1,3 +1,4 @@
+// routes.ts
 import { Routes } from '@angular/router';
 import { Home } from './features/home/home';
 import { Login } from './features/login/login';
@@ -17,22 +18,50 @@ import { BrandDetails } from './features/brand-details/brand-details';
 import { CategoryDetails } from './features/category-details/category-details';
 import { Wishlist } from './features/wishlist/wishlist';
 
+// ----------------------------
+// Prerendering parameter functions
+// ----------------------------
+export async function getProductPrerenderParams() {
+    const res = await fetch('https://your-api-url.com/products');
+    const products = await res.json();
+    return products.map((p: any) => ({ id: p.id }));
+}
+
+export async function getCategoryPrerenderParams() {
+    const res = await fetch('https://your-api-url.com/categories');
+    const categories = await res.json();
+    return categories.map((c: any) => ({ id: c.id }));
+}
+
+export async function getBrandPrerenderParams() {
+    const res = await fetch('https://your-api-url.com/brands');
+    const brands = await res.json();
+    return brands.map((b: any) => ({ id: b.id }));
+}
+
+// ----------------------------
+// Routes
+// ----------------------------
 export const routes: Routes = [
     { path: "", redirectTo: 'home', pathMatch: 'full' },
     { path: "home", component: Home },
-    { path: "login", component: Login, canActivate:[loggedInGuard] },
-    { path: "signup", component: SignUp, canActivate:[loggedInGuard] },
-    { path: "resetPassword", component: ForgetPasswordComponent, canActivate:[loggedInGuard] },
+    { path: "login", component: Login, canActivate: [loggedInGuard] },
+    { path: "signup", component: SignUp, canActivate: [loggedInGuard] },
+    { path: "resetPassword", component: ForgetPasswordComponent, canActivate: [loggedInGuard] },
     { path: "products", component: Products },
+
+    // Dynamic routes with prerendering
     { path: "productDetails/:id", component: ProductDetails, data: { prerender: false } },
-    { path: "categories", component: Categories },
     { path: "categoriesDetails/:id", component: CategoryDetails, data: { prerender: false } },
-    { path: "brands", component: Brands },
     { path: "brandsDetails/:id", component: BrandDetails, data: { prerender: false } },
-    { path: "cart", component: Cart, canActivate:[authGuard] },
-    { path: "wishlist", component: Wishlist, canActivate:[authGuard] },
-    { path: "checkOut/:id", component: Checkout, canActivate:[authGuard], data: { prerender: false } },
-    { path: "allorders", component: AllOrders, canActivate:[authGuard] },
+    { path: "checkOut/:id", component: Checkout, canActivate: [authGuard], data: { prerender: false } },
+
+    // Other routes
+    { path: "categories", component: Categories },
+    { path: "brands", component: Brands },
+    { path: "cart", component: Cart, canActivate: [authGuard], data: { prerender: false } },
+    { path: "wishlist", component: Wishlist, canActivate: [authGuard] },
+    { path: "checkOut/:id", component: Checkout, canActivate: [authGuard], data: { prerender: false } },
+    { path: "allorders", component: AllOrders, canActivate: [authGuard] },
     { path: "**", component: Notfound },
 ];
-
