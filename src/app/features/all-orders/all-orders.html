@@ -1,0 +1,79 @@
+<div class="container w-[90%] mx-auto my-10">
+
+  <div class="text-center my-10">
+    <p class="text-2xl font-bold text-sky-800 mb-3">All Orders</p>
+    <div class="flex items-center justify-center mb-5 w-full max-w-xs mx-auto">
+      <span class="block w-1/4 h-[3px] bg-sky-800 rounded-full"></span>
+      <i class="fa-solid fa-star mx-3 text-sky-800 text-lg"></i>
+      <span class="block w-1/4 h-[3px] bg-sky-800 rounded-full"></span>
+    </div>
+  </div>
+
+  @if(isLoading) {
+    <div class="text-center text-xl">
+      <i class="fa-solid fa-spinner fa-spin"></i> Loading orders...
+    </div>
+  }
+  @else if(errorMessage) {
+    <div class="text-center text-red-600 text-lg">{{ errorMessage }}</div>
+  }
+  @else if(orders.length === 0) {
+    <div class="h-96 flex justify-center items-center">
+      <img src="images/empty cart.jpg" class="w-1/2 mx-auto">
+    </div>
+  }
+  @else {
+    @for(order of orders; track $index) {
+      @if(order.user._id ===   userIdFromToken){
+<section class="flex flex-col md:flex-row mb-10 border border-gray-200 rounded-2xl shadow-sm bg-white dark:bg-gray-800 p-6 md:space-x-6">
+
+        <div class="w-full md:w-3/4 overflow-x-auto">
+          <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-white uppercase bg-sky-800 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" class="px-6 py-3">Image</th>
+                <th scope="col" class="px-6 py-3">Product</th>
+                <th scope="col" class="px-6 py-3">Qty</th>
+                <th scope="col" class="px-6 py-3">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for(item of order.cartItems; track $index) {
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <td class="p-4">
+                    <img [src]="item.product.imageCover" class="w-16 md:w-32 rounded-lg" alt="{{item.product.title}}">
+                  </td>
+                  <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">{{item.product.title}}</td>
+                  <td class="px-6 py-4">{{item.count}}</td>
+                  <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">{{item.price | currency}}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <div class="w-full md:w-1/4 mt-6 md:mt-0 flex flex-col items-center justify-between">
+          <div class="flex flex-col w-full max-w-sm bg-white border border-gray-200 rounded-2xl shadow-lg p-6 dark:bg-gray-800 dark:border-gray-700">
+            <div class="mb-4">
+              <p class="text-2xl font-bold text-sky-800 mb-3 text-center">Order Summary</p>
+              <div class="flex items-center justify-center mb-5 w-full max-w-xs mx-auto">
+                <span class="block w-1/4 h-[3px] bg-sky-800 rounded-full"></span>
+                <i class="fa-solid fa-star mx-3 text-sky-800 text-lg"></i>
+                <span class="block w-1/4 h-[3px] bg-sky-800 rounded-full"></span>
+              </div>
+              <p class="text-gray-700 dark:text-gray-300 text-sm font-semibold"><span class="text-sky-800 font-bold">Order ID:</span> {{order.id}}</p>
+              <p class="text-gray-700 dark:text-gray-300 text-sm font-semibold"><span class="text-sky-800 font-bold">Date:</span> {{order.createdAt | date:'medium'}}</p>
+              <p class="text-gray-700 dark:text-gray-300 text-sm font-semibold"><span class="text-sky-800 font-bold">Payment:</span> {{order.paymentMethodType}}</p>
+            </div>
+            <div class="mt-auto text-center bg-sky-50 rounded-lg py-3 shadow-inner">
+              <span class="text-2xl font-extrabold text-sky-800">{{order.totalOrderPrice | currency}}</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+      }
+      
+    }
+  }
+</div>

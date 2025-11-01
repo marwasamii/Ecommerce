@@ -1,0 +1,15 @@
+{
+    "navbar":{
+        "Home":"الرئيسية",
+        "brands":"البراندات",
+        "categories":"التصنيفات",
+        "products":"المنتجات",
+        "logout":"تسجيل خروج",
+        "login":"تسجيل دخول",
+        "Registration":"تسجيل",
+        "english":"الانجليزية",
+        "arabic":"العربية",
+        "wishlist":"المفضلات"
+   
+    }
+}

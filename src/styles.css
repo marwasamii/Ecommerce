@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@import "flowbite/src/themes/default";
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
+
+
+@layer component{
+.btn{
+   @apply bg-sky-800 hover:bg-sky-900 text-white w-full py-3 rounded-sm
+}
+.btn-small {
+  @apply w-auto py-3 px-3 text-sm;
+}
+
+}

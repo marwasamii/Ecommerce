@@ -1,0 +1,101 @@
+<section class="bg-gray-100 border border-gray-100 w-[50%] mx-auto my-10 p-10">
+    <h1 class="text-center text-4xl text-sky-800">Payment Now</h1>
+    <form [formGroup]="checkOutForm" (ngSubmit)="submitForm('visa')">
+
+
+
+        <div class="relative mt-5">
+            <input type="text" id="details"
+                class="block rounded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-sky-800 focus:outline-none focus:ring-0 focus:border-sky-800 peer"
+                formControlName="details" placeholder=" " />
+            <label for="details"
+                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-sky-800 peer-focus:dark:text-sky-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Details</label>
+        </div>
+        <!--Validation details-->
+        @if (checkOutForm.get('details')?.errors && checkOutForm.get('details')?.touched) {
+        <div class="text-red-700">
+            @if (checkOutForm.get('details')?.getError('required')) {
+            <h1>details is required</h1>
+
+            }
+
+        </div>
+        }
+        <div class="relative mt-5">
+            <input type="tel" id="phone"
+                class="block rounded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-sky-800 focus:outline-none focus:ring-0 focus:border-sky-800 peer"
+                formControlName="phone" placeholder=" " />
+            <label for="phone"
+                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-sky-800 peer-focus:dark:text-sky-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">phone</label>
+        </div>
+        <!--Validation phone-->
+        @if (checkOutForm.get('phone')?.errors && checkOutForm.get('phone')?.touched) {
+        <div class="text-red-700">
+            @if (checkOutForm.get('phone')?.getError('required')) {
+            <h1>phone is required</h1>
+
+            }
+
+        </div>
+        }
+        <div class="relative mt-5">
+            <input type="text" id="city"
+                class="block rounded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-sky-800 focus:outline-none focus:ring-0 focus:border-sky-800 peer"
+                formControlName="city" placeholder=" " />
+            <label for="city"
+                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-sky-800 peer-focus:dark:text-sky-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">city</label>
+        </div>
+        <!--Validation city-->
+        @if (checkOutForm.get('city')?.errors && checkOutForm.get('city')?.touched) {
+        <div class="text-red-700">
+            @if (checkOutForm.get('city')?.getError('required')) {
+            <h1>city is required</h1>
+
+            }
+
+        </div>
+        }
+
+
+
+        <p class="text-red-700">{{errMessage}}</p>
+        <!-- <div class="">
+            <button class="btn my-4">
+            Pay By Visa
+            @if(isLoading){
+            <i class="fa-solid fa-spinner"></i>
+            }
+        </button>
+        <button class="btn my-4">
+            Pay By Cash
+            @if(isLoading){
+            <i class="fa-solid fa-spinner"></i>
+            }
+        </button>
+        </div> -->
+        <div class="flex items-center justify-center gap-4">
+            <button type="button" class="btn my-4 flex items-center justify-center gap-2" [disabled]="isLoading"
+                (click)="submitForm('visa')">
+                Pay By Visa
+                @if (isLoading && paymentType === 'visa') {
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                }
+            </button>
+
+            <button type="button" class="btn my-4 flex items-center justify-center gap-2" [disabled]="isLoading"
+                (click)="submitForm('cash')">
+                Pay By Cash
+                @if (isLoading && paymentType === 'cash') {
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                }
+            </button>
+        </div>
+
+
+
+
+
+
+
+    </form>
+</section>

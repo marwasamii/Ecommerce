@@ -1,0 +1,43 @@
+<app-category-slider [slideData]="categoriesList"></app-category-slider>
+
+
+@if (!inHome) {
+<div class="w-[90%] mx-auto py-10">
+    <div class="text-center my-10">
+        <p class="text-2xl font-bold text-sky-800 inline-block relative mb-3">
+            Categories
+            <!-- <span class="absolute left-1/2 -bottom-2 w-16 h-[3px] bg-sky-800 transform -translate-x-1/2"></span>
+            <span class="absolute left-1/2 -bottom-4 w-10 h-[3px] bg-sky-800 transform -translate-x-1/2"></span> -->
+        </p>
+        <div class="flex items-center justify-center mb-5 w-full max-w-xs mx-auto">
+            <span class="block w-1/4 h-[3px] bg-sky-800 rounded-full"></span>
+            <i class="fa-solid fa-star mx-3 text-sky-800 text-lg"></i>
+            <span class="block w-1/4 h-[3px] bg-sky-800 rounded-full"></span>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        @for (item of categoriesList(); track $index) {
+
+        <div [routerLink]="['/categoriesDetails',item?._id]">
+            <div
+                class="group bg-gray-200 rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer">
+                <div class="relative w-full h-50 overflow-hidden">
+                    <img [src]="item.image" [alt]="item.name"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <div
+                        class="absolute inset-0 bg-sky-800/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    </div>
+                </div>
+                <div class="p-4 text-center">
+                    <h3
+                        class="text-sky-800 font-semibold text-lg group-hover:text-sky-600 transition-colors duration-300">
+                        {{ item.name }}
+                    </h3>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+}

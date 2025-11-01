@@ -1,0 +1,33 @@
+<div
+    class="overflow-hidden m-2 group/card bg-white border border-gray-300 hover:border-sky-800 cursor-pointer rounded-md p-3">
+    <div [routerLink]="['/productDetails',productData?._id]">
+        <div>
+            <img [src]="productData?.imageCover" class="w-full h-[200px]">
+            <div class="flex justify-between items-center mt-2">
+                <h3 class="text-sky-800">{{productData?.category?.name | uppercase}}</h3>
+                <button (click)="toggleWishlist(productData?._id, $event)"
+                    class="transition-colors duration-200 cursor-pointer">
+
+                    <i class="fa-solid fa-heart text-xl" [class.text-pink-600]="isInWishlist(productData?._id)"
+                        [class.text-gray-400]="!isInWishlist(productData?._id)">
+                    </i>
+                </button>
+            </div>
+            <h4 class="line-clamp-1">{{productData?.title | onSale}}</h4>
+
+        </div>
+        <div class="flex justify-between items-center py-3">
+            <div>
+                <span>{{productData?.price | currency}}</span>
+            </div>
+            <div>
+                <i class="fa-solid fa-star text-yellow-400"></i>
+                <span>{{productData?.ratingsQuantity}}</span>
+            </div>
+        </div>
+    </div>
+    <button (click)="addProduct(productData?._id)"
+        class="btn group-hover/card:translate-y-[0] transition-all duration-200 translate-y-[130%] cursor-pointer">Add
+        To
+        Cart</button>
+</div>
